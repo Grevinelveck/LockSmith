@@ -2,3 +2,4 @@ name: LockSmith
 main: at.grevinelveck.locksmith.LockSmith
 version: '0.1'
 author: Grevinelveck
+database: true

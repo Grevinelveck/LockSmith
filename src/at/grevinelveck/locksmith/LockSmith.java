@@ -12,6 +12,7 @@ import com.avaje.ebean.EbeanServer;
 public class LockSmith extends JavaPlugin {
 
 	public static EbeanServer database;
+	public static LockSmith plugin;
 
 	@Override
 	public void onDisable() {
@@ -23,6 +24,8 @@ public class LockSmith extends JavaPlugin {
 		System.out.println("yay test");
 		database = getDatabase();
 		setupDatabase();
+		plugin = this;
+
 	}
 
 	private void setupDatabase() {
@@ -30,12 +33,10 @@ public class LockSmith extends JavaPlugin {
 			database.find(PlayerDatabase.class).findRowCount();
 		} catch (PersistenceException ex) {
 			// ex.printStackTrace();
-			System.out
-					.println("Installing database for "
-							+ getDescription().getName()
-							+ " due to first time use.");
+			System.out.println("Installing database for "
+					+ getDescription().getName() + " due to first time use.");
 			installDDL();
-		}
+		} 
 	}
 
 	@Override

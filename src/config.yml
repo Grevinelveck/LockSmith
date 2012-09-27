@@ -1,0 +1,17 @@
+LockableBlocks:
+  Chest: true
+  Brewingstand: true
+  Furnace: true
+  Dispenser: true
+  Jukebox: true
+  MinecartwithChest: true
+  MinecartwithFurnace: true
+  WoodenDoor: true
+  IronDoor: true
+  TrapDoor: true
+  FenceGate: true
+  WoodenButton: true
+  StoneButton: true
+  WoodenPressurePlate: true
+  StonePressurePlate: true
+  Lever: true
