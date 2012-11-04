@@ -4,6 +4,8 @@ import java.util.List;
 
 import javax.persistence.*;
 
+import org.bukkit.Location;
+
 import com.avaje.ebean.validation.NotNull;
 
 @Entity
@@ -11,9 +13,17 @@ import com.avaje.ebean.validation.NotNull;
 public class PlayerDatabase {
 	@Id
 	private int id;
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
 	@NotNull
 	private String owner;
-	@NotNull
+	
 	private List<String> members;
 	@NotNull
 	private int totalvalue;
@@ -22,7 +32,7 @@ public class PlayerDatabase {
 	@NotNull
 	private int lastupdated;
 	@NotNull
-	private int x, y, z;
+	private Location bLoc;
 	@NotNull
 	private String worldname;
 
@@ -66,28 +76,13 @@ public class PlayerDatabase {
 		this.lastupdated = lastupdated;
 	}
 
-	public int getY() {
-		return y;
+
+	public Location getbLoc() {
+		return bLoc;
 	}
 
-	public void setY(int y) {
-		this.y = y;
-	}
-
-	public int getX() {
-		return x;
-	}
-
-	public void setX(int x) {
-		this.x = x;
-	}
-
-	public int getZ() {
-		return z;
-	}
-
-	public void setZ(int z) {
-		this.z = z;
+	public void setbLoc(Location bLoc) {
+		this.bLoc = bLoc;
 	}
 
 	public String getWorldname() {
@@ -97,5 +92,6 @@ public class PlayerDatabase {
 	public void setWorldname(String worldname) {
 		this.worldname = worldname;
 	}
+
 
 }

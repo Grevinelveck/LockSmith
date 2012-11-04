@@ -4,25 +4,14 @@ import java.util.ArrayList;
 
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.block.BlockPlaceEvent;
-import org.bukkit.event.player.PlayerInteractEvent;
-
-import com.avaje.ebean.Query;
 
 public class LockSmithEvents implements Listener {
 
-	/*TODO Setup database
-	 * TODO Store information about lockable items when placed
-	 * TODO Set up locking
-	 * TODO Set up unlocking
-	 * TODO Set up adding members
-	 * TODO Set up removing members
-	 * TODO Set up list members
-	 * TODO Add a permissions bypass to everything.*/
-
+	// Store the data on a place event
 	@EventHandler
 	public void lBlock(BlockPlaceEvent event) {
-		System.out.println(event.getBlock().getTypeId());
 		if (!LockSmith.plugin.getConfig().contains(
 				"LockableBlocks." + event.getBlock().getType())) {
 			return;
@@ -34,25 +23,21 @@ public class LockSmithEvents implements Listener {
 		toadd.setOwner(event.getPlayer().getName());
 		toadd.setTotalvalue(0);
 		toadd.setWorldname(event.getBlock().getWorld().getName());
-		toadd.setX(event.getBlock().getX());
-		toadd.setY(event.getBlock().getY());
-		toadd.setZ(event.getBlock().getZ());
+		toadd.setbLoc(event.getBlock().getLocation());
 		LockSmith.database.save(toadd);
 
 	}
 
-	@EventHandler
-	public void useListener(PlayerInteractEvent event) {
-		System.out.println(event.getItem().getTypeId());
-		if (!LockSmith.plugin.getConfig().contains("LockItems."
-		+ event.getItem().getType())
-				|| LockSmith.database.createQuery(PlayerDatabase.class).where()
-						.eq("location", event.getClickedBlock().getLocation())
+	/**********************************************
+	 * on a block break event check the location. Special actions are, check if
+	 * locked, if locked is player owner or member. If not cancel event. If they
+	 * are a owner or member remove block from the database.
+	 * *******************************************/
+	public void bBlock(BlockBreakEvent event)
 
-						.findRowCount() == 0) {
-			return;
-
+	{
+		if (LockSmith.database.createQuery(PlayerDatabase.class).where()
+				.eq("bLoc", event.getBlock().getLocation()) != null) {
 		}
-if(LockSmith.database.createQuery(PlayerDatabase.class).where().eq("Owner", event.getPlayer().getName()) != null);
 	}
 }
