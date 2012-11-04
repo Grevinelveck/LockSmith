@@ -37,7 +37,11 @@ public class LockSmithEvents implements Listener {
 
 	{
 		if (LockSmith.database.createQuery(PlayerDatabase.class).where()
-				.eq("bLoc", event.getBlock().getLocation()) != null) {
+				.eq("bLoc", event.getBlock().getLocation()) == null) {
+			return;
 		}
+		PlayerDatabase dB=LockSmith.database.find(PlayerDatabase.class)
+				.where().eq("playerName", event.getBlock().getLocation()).findUnique();
+		
 	}
 }

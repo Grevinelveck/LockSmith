@@ -29,7 +29,7 @@ public class LockSmith extends JavaPlugin {
 	public void onEnable() {
 		PluginManager pm = this.getServer().getPluginManager();
 		pm.registerEvents(locklistener, this);;
-		System.out.println("yay test");
+		System.out.println("Locksmith is on the job");
 		database = getDatabase();
 		setupDatabase();
 		plugin = this;
