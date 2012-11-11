@@ -1,7 +1,9 @@
 package at.grevinelveck.locksmith;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 
+import org.bukkit.ChatColor;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
@@ -41,7 +43,25 @@ public class LockSmithEvents implements Listener {
 			return;
 		}
 		PlayerDatabase dB=LockSmith.database.find(PlayerDatabase.class)
-				.where().eq("playerName", event.getBlock().getLocation()).findUnique();
+				.where().eq("bLock", event.getBlock().getLocation()).findUnique();
+		String dBOwner=dB.getOwner();
+		Iterator<String> dBMembers=dB.getMembers().iterator();
+		boolean found=false;
+		if (event.getPlayer().getName().equalsIgnoreCase(dBOwner)){
+			found=true;
+		}else{
+			while (dBMembers.hasNext()||!found==true){
+				String cName=dBMembers.next();
+				if (cName.equalsIgnoreCase(event.getPlayer().getName())){
+					found=true;
+				}
+				if (found==true){
+					event.setCancelled(true);
+					event.getPlayer().sendMessage(ChatColor.RED+"This chest isn't yours");
+					return;
+				}
+			}
+		}
 		
 	}
 }
